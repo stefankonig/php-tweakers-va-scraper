@@ -56,12 +56,12 @@ class tweakChecker
         $this->debugLog("returnTo: {$returnTo}");
         $this->debugLog("tweakersToken: {$tweakers_token}");
 
-        $output2 = $this->curlTweakers(["returnTo={$returnTo}", "tweakers_token={$tweakers_token}"]);
+        $vaPage = $this->curlTweakers(["returnTo={$returnTo}", "tweakers_token={$tweakers_token}"]);
 
-        $ads = $this->processPage($output2);
+        $ads = $this->processPage($vaPage);
         $this->debugLog("Parsed " . count($ads) . " VA ads");
         $newAds = $this->checkChangesAndSaveState($ads);
-        $this->debugLog(count($newAds) . " new ads");
+        $this->debugLog(count($newAds) . " new ads found");
 
         $this->notifyNewAds($newAds);
     }
@@ -125,6 +125,9 @@ class tweakChecker
                 $this->debugLog($rawAd);
             }
         }
+
+        // discard the last 5 ads. so we wont get notified about an old (page2) ad when someone removes there ad
+        array_splice($ads, 20);
 
         return $ads;
     }
