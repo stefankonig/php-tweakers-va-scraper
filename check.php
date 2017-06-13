@@ -176,15 +176,16 @@ class tweakChecker
             $description = $newAd['description'];
             $url         = $newAd['url'];
 
-            $this->pushover("{$price} - {$title}", "{$description} - {$url}");
+            $this->pushover("{$price} - {$title}", "{$description}", $url);
         }
     }
 
     /**
      * @param string $title
      * @param string $message
+     * @param string $url
      */
-    public function pushover($title, $message)
+    public function pushover($title, $message, $url)
     {
         $this->debugLog("PUSHOVER: {$title} - {$message}");
         $priority = 0;
@@ -206,6 +207,7 @@ class tweakChecker
                     "user"      => $this->pushoverUser,
                     "title"     => "{$title}",
                     "message"   => $message,
+                    "url"       => $url,
                     "priority"  => $priority,
                     "timestamp" => time(),
                 )
