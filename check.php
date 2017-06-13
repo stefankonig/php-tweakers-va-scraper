@@ -126,9 +126,6 @@ class tweakChecker
             }
         }
 
-        // discard the last 5 ads. so we wont get notified about an old (page2) ad when someone removes there ad
-        array_splice($ads, 20);
-
         return $ads;
     }
 
@@ -149,11 +146,12 @@ class tweakChecker
             }
         }
 
-        foreach ($newAds as $newAd) {
+        foreach ($newAds as $counter => $newAd) {
             $newAdTitle = $newAd['title'];
             $newState[] = $newAdTitle;
 
-            if (!in_array($newAdTitle, $laststate)) {
+            // discard the last 5 ads. so we wont get notified about an old (page2) ad when someone removes there ad
+            if (!in_array($newAdTitle, $laststate) && $counter < 20) {
                 $addedAds[] = $newAd;
             }
         }
