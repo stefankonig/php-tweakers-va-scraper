@@ -4,7 +4,7 @@ this script will poll and parse all Ads on the 1 page and check it with its prev
 if a new Ad has been found, it will notify you via Pushover.<br>
 you will also be able to add keywords to the BOLO list. so a different priority can be assigned for specific items that you are looking for in this sub category.
 
-![iOSPushoverExample](https://img.seosepa.net/php-tweakers-va-scraper2.png)
+![iOSPushoverExample](https://img.seosepa.net/php-tweakers-va-scraper4.png)
 
 feel free to implement / change anything to suite your needs.<br>
 this script will come without any garantuee of working.
