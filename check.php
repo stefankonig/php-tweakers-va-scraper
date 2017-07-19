@@ -197,7 +197,6 @@ class tweakChecker
      */
     public function pushover($title, $message, $url)
     {
-        $this->debugLog("PUSHOVER: {$title} - {$message}");
         $priority = 0;
         $boloMatch = false;
 
@@ -213,6 +212,8 @@ class tweakChecker
         if ($this->onlyPushForBolo == true && $boloMatch == false) {
             return; // skip the push when only pushing for BOLO
         }
+
+        $this->debugLog("PUSHOVER: {$title} - {$message}");
 
         curl_setopt_array(
             $ch = curl_init(),
