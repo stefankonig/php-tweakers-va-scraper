@@ -12,15 +12,25 @@ class tweakChecker
 {
     /**
      * include the category for specific notifications
+     *
+     * @var string $tweakersUrl
      */
     private $tweakersUrl = "https://tweakers.net/categorie/714/servers/aanbod/";
 
     /**
      * Be on the lookout for certain keywords in the title, and e.g. give it a high prio pushover
+     *
+     * @var array $bolo
      */
     private $bolo = [
         'DL180'
     ];
+
+    /**
+     * @var bool $onlyPushForBolo
+     */
+    private $onlyPushForBolo = false;
+
 
     private $pushoverToken = "";
     private $pushoverUser = "";
@@ -189,13 +199,19 @@ class tweakChecker
     {
         $this->debugLog("PUSHOVER: {$title} - {$message}");
         $priority = 0;
+        $boloMatch = false;
 
         // check for items to "be on look out" for and give higher prio
         foreach ($this->bolo as $bolo) {
             if (stripos($title, $bolo)) {
                 $this->debugLog("PUSHOVER: matched bolo {$bolo} to title");
                 $priority = 1;
+                $boloMatch = true;
             }
+        }
+
+        if ($this->onlyPushForBolo == true && $boloMatch == false) {
+            return; // skip the push when only pushing for BOLO
         }
 
         curl_setopt_array(
